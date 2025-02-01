@@ -23,7 +23,7 @@ public class Program {
         }
     }
 
-    public static void insertarProgram(){
+    public static Pelicula insertarProgram(){
         PeliculaService bd = new PeliculaService();
         List <String> generos = new ArrayList<>();
         List <String> actores = new ArrayList<>();
@@ -56,6 +56,7 @@ public class Program {
         String descripcion = new Scanner(System.in).nextLine();
         Pelicula peliculaAinsertar = new Pelicula(nombre,fechaEstreno,generos,nombreDirector,actores,descripcion);
         bd.crearPelicula(peliculaAinsertar);
+       return peliculaAinsertar;
     }
     public static void borrarProgram(){
         PeliculaService bd = new PeliculaService();
@@ -70,6 +71,15 @@ public class Program {
 
         System.out.println("Todos los datos");
         bd.obtenerTodasLasPeliculas().stream().forEach(System.out::println);
+    }
+
+    public static void actualizar(){
+        PeliculaService bd = new PeliculaService();
+
+        System.out.println("Introduce el titulo de la pelicula que quieras actualizar");
+        String nombrePeliculaAborrar = new Scanner(System.in).nextLine();
+        Pelicula pelicula = insertarProgram();
+        bd.actualizarPelicula(nombrePeliculaAborrar, pelicula);
     }
 
 

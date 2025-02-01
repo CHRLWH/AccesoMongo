@@ -20,6 +20,7 @@ public class Menu {
                 Program.mostrarTodoProgram();
                 break;
             case 5:
+                Program.actualizar();
                 break;
 
         }
