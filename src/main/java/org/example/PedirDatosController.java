@@ -14,6 +14,7 @@ public class PedirDatosController {
         List<String> generos = new ArrayList<>();
         do {
             try {
+                controladorDeExcepcion = false;
                 generos =  PedirDatos.obtenerGeneros();
             }catch (InputMismatchException a){
                 System.out.println("Introduce solo numeros");
@@ -31,6 +32,7 @@ public class PedirDatosController {
         List <String> actores = new ArrayList<>();
         do {
             try {
+                controladorDeExcepcion = false;
                 actores =  PedirDatos.obtenerActores();
             }catch (InputMismatchException a){
                 System.out.println("Introduce solo numeros");
@@ -49,7 +51,9 @@ public class PedirDatosController {
             LocalDate fecha = null;
             do {
                 try {
+                    controladorDeExcepcion = false;
                     fecha =  PedirDatos.obtenerFechaEstreno();
+                    
                 }catch (DateTimeParseException a){
                     System.out.println("Recuerda introducir la fecha en formato (formato: yyyy-MM-dd)");
                     controladorDeExcepcion =true;

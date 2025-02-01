@@ -20,9 +20,11 @@ public class Program {
         }catch (Exception e){
             e.printStackTrace();
         }
+        bd.cerrarConexion();
+
     }
 
-    public static Pelicula insertarProgram() {
+    public static void insertarProgram() {
         PeliculaService bd = new PeliculaService();
 
         String nombre = PedirDatos.obtenerNombrePelicula();
@@ -41,7 +43,8 @@ public class Program {
 
         bd.crearPelicula(peliculaAinsertar);
 
-        return peliculaAinsertar;
+        bd.cerrarConexion();
+
     }
     public static void borrarProgram(){
         PeliculaService bd = new PeliculaService();
@@ -49,6 +52,8 @@ public class Program {
         System.out.println("Introduce el nombre de la pelicula que deseas borrar:");
         String nombrePeliculaAborrar = new Scanner(System.in).nextLine();
         bd.eliminarPelicula(nombrePeliculaAborrar);
+        bd.cerrarConexion();
+
     }
 
     public static void mostrarTodoProgram() throws ParseException {
@@ -58,13 +63,31 @@ public class Program {
         bd.obtenerTodasLasPeliculas().stream().forEach(System.out::println);
     }
 
-    public static void actualizar(){
+    public static void actualizar() throws ParseException {
         PeliculaService bd = new PeliculaService();
+        String insertarVF;
+        String nombre = PedirDatos.obtenerNombrePelicula();
+        boolean existePelicula = Funcionalidades.buscadorRecursivo(nombre,bd);
+        if (!existePelicula) {
+            System.out.println("La pelicula no existe,desea insertar?");
+            insertarVF = new Scanner(System.in).nextLine();
+            if (insertarVF.equalsIgnoreCase("s")) {
+                Program.insertarProgram();
+            }else{
+                System.out.println("Adios!");
+            }
+        } else {
+            LocalDate fechaEstreno = PedirDatosController.obtenerFechaEstreno();
+            List<String> generos = PedirDatosController.obtenerGeneros();
+            String nombreDirector =  PedirDatos.obtenerNombreDirector();
+            List<String> actores =  PedirDatosController.obtenerActores();
+            String descripcion =  PedirDatos.obtenerDescripcion();
+            Pelicula pelicula = new Pelicula(nombre, fechaEstreno, actores, nombreDirector, generos, descripcion);
+            bd.actualizarPelicula(nombre, pelicula);
+        }
 
-        System.out.println("Introduce el titulo de la pelicula que quieras actualizar");
-        String nombrePeliculaAborrar = new Scanner(System.in).nextLine();
-        Pelicula pelicula = insertarProgram();
-        bd.actualizarPelicula(nombrePeliculaAborrar, pelicula);
+        bd.cerrarConexion();
+
     }
 
 

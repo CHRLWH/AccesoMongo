@@ -15,6 +15,7 @@ public class MongoDBConnection {
         database = mongoClient.getDatabase("peliculas");
     }
 
+
     public MongoDatabase getDatabase() {
         return database;
     }

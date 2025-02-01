@@ -93,6 +93,11 @@ public class PeliculaService {
 
         System.out.println("Pelicula eliminada correctamente.");
     }
+
+    public void cerrarConexion(){
+        MongoDBConnection conexion = new MongoDBConnection();
+        conexion.close();
+    }
 }
 
 

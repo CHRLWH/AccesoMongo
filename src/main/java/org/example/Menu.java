@@ -22,7 +22,6 @@ public class Menu {
             case 5:
                 Program.actualizar();
                 break;
-
         }
     }
 }
