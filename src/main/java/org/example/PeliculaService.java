@@ -7,8 +7,11 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,24 +19,24 @@ public class PeliculaService {
     private MongoDatabase database;
 
     // Constructor que recibe la conexión a la base de datos
-    public PeliculaService(MongoDatabase database) {
-        this.database = database;
+    public PeliculaService() {
+        MongoDBConnection conexion = new MongoDBConnection();
+        this.database = conexion.getDatabase() ;
     }
 
-    public PeliculaService() {
-    }
 
     // Crear (Insertar) un nuevo científico
     public void crearPelicula(Pelicula pelicula) {
-        MongoCollection<Document> collection = database.getCollection("peliculas");
+
+        MongoCollection<Document> collection = database.getCollection("pelicula");
 
         // Convertir el objeto Cientifico a un documento BSON
-        Document document = new Document("Titulo", pelicula.getTitulo())
-                .append("Estreno", pelicula.getEstreno())
-                .append("Genero", pelicula.getGenero())
-                .append("Director", pelicula.getDirector())
-                .append("Actores", pelicula.getActores())
-                .append("Descripcion", pelicula.getDescripcion());
+        Document document = new Document("titulo", pelicula.getTitulo())
+                .append("estreno", pelicula.getEstreno())
+                .append("genero", pelicula.getGenero())
+                .append("director", pelicula.getDirector())
+                .append("actores", pelicula.getActores())
+                .append("descripcion", pelicula.getDescripcion());
 
         // Insertar el documento en la colección
         collection.insertOne(document);
@@ -42,7 +45,7 @@ public class PeliculaService {
 
     // Leer (Buscar) una pelicula por su titulo
     public void obtenerPeliculaPorTitulo(String titulo) {
-        MongoCollection<Document> collection = database.getCollection("peliculas");
+        MongoCollection<Document> collection = database.getCollection("pelicula");
 
         // Crear una consulta para buscar por titulo
         Document query = new Document("Titulo", titulo);
@@ -58,9 +61,8 @@ public class PeliculaService {
     }
 
     // Leer todos los científicos
-    public List<Pelicula> obtenerTodasLasPeliculas() {
-        MongoDBConnection mongoDBConnection = new MongoDBConnection();
-        MongoCollection<Document> collection = database.getCollection("peliculas");
+    public List<Pelicula> obtenerTodasLasPeliculas() throws ParseException {
+        MongoCollection<Document> collection = database.getCollection("pelicula");
 
         // Obtener todos los documentos de la colección
         List<Pelicula> peliculas = new ArrayList<>();
@@ -68,9 +70,9 @@ public class PeliculaService {
             Pelicula pelicula = new Pelicula();
             pelicula.setTitulo(doc.getString("titulo"));
             pelicula.setEstreno(LocalDate.parse(doc.getString("estreno")));
-            pelicula.setGenero(Collections.singletonList(doc.getString("genero")));
+            pelicula.setGenero(doc.getList("genero",String.class));
             pelicula.setDirector(doc.getString("director"));
-            pelicula.setActores(Collections.singletonList(doc.getString("actores")));
+            pelicula.setActores(doc.getList("genero",String.class));
             pelicula.setDescripcion(doc.getString("descripcion"));
             peliculas.add(pelicula);
         }

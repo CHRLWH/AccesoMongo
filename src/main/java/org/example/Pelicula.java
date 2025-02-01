@@ -2,6 +2,7 @@ package org.example;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Pelicula {
@@ -24,7 +25,18 @@ public class Pelicula {
     public Pelicula() {
     }
 
-    // Getters y Setters
+    @Override
+    public String toString() {
+        return "Pelicula{" +
+                "titulo='" + titulo + '\'' +
+                ", estreno=" + estreno +
+                ", genero=" + genero +
+                ", director='" + director + '\'' +
+                ", actores=" + actores +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
+// Getters y Setters
 
     public String getTitulo() {
         return titulo;
