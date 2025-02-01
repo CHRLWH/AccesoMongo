@@ -1,8 +1,9 @@
-package org.example;
+package org.example.Datos;
+
+import org.example.Presentacion.EntradaDeDatos;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,24 +11,20 @@ public class PedirDatos {
 
 
     public static String obtenerNombrePelicula() {
-        System.out.println("Bienvenido a crear una pelicula");
         System.out.println("Introduce el nombre de la pelicula");
         return new Scanner(System.in).nextLine();
     }
 
     public static LocalDate obtenerFechaEstreno() {
-        System.out.println("Introduce la fecha de estreno (formato: yyyy-MM-dd)");
-        return LocalDate.parse(new Scanner(System.in).nextLine());
+        return EntradaDeDatos.pedirFecha("Introduce la fecha de estreno (formato: yyyy-MM-dd)");
     }
 
     public static List<String> obtenerGeneros() {
-        System.out.println("Cuantos generos quieres introducir?");
-        int generosAintroducir = new Scanner(System.in).nextInt();
+        int generosAintroducir = EntradaDeDatos.pedirNumeros("Cuantos generos quieres introducir?");
         List <String> generos = new ArrayList<>();
 
         do {
-            System.out.println("Introduce el nombre del genero a introducir");
-            String nombregenero = new Scanner(System.in).nextLine();
+            String nombregenero = EntradaDeDatos.pedirStringConMensaje("Introduce el nombre del genero a introducir");
             generos.add(nombregenero);
             generosAintroducir--;
         }while (generosAintroducir >0);
@@ -37,19 +34,17 @@ public class PedirDatos {
     // Método para obtener el nombre del director
     public static String obtenerNombreDirector() {
         System.out.println("Introduce el nombre del director");
-        return new Scanner(System.in).nextLine();
+        return EntradaDeDatos.pedirStringConMensaje("Introduce el nombre del director");
     }
 
     // Método para obtener los actores
     public static List<String> obtenerActores() {
 
         List <String> actores = new ArrayList<>();
-               System.out.println("Cuantos actores quieres introducir?");
-               int actoresAintroducir = new Scanner(System.in).nextInt();
+               int actoresAintroducir = EntradaDeDatos.pedirNumeros("Cuantos actores quieres introducir?");
 
                do {
-                   System.out.println("Introduce el nombre del actor a introducir");
-                   String nombregenero = new Scanner(System.in).nextLine();
+                   String nombregenero = EntradaDeDatos.pedirStringConMensaje("Introduce el nombre del actor a introducir");
                    actores.add(nombregenero);
                    actoresAintroducir--;
                } while (actoresAintroducir > 0);
@@ -59,8 +54,7 @@ public class PedirDatos {
 
     // Método para obtener la descripción de la película
     public static String obtenerDescripcion() {
-        System.out.println("Introduce la descripcion de la pelicula");
-        return new Scanner(System.in).nextLine();
+        return EntradaDeDatos.pedirStringConMensaje("Introduce la descripcion de la pelicula");
     }
 
 }

@@ -1,8 +1,13 @@
-package org.example;
+package org.example.Presentacion;
+
+import org.example.Datos.PedirDatos;
+import org.example.Datos.PedirDatosController;
+import org.example.Datos.PeliculaService;
+import org.example.Logica.Funcionalidades;
+import org.example.Logica.Pelicula;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,6 +30,7 @@ public class Program {
     }
 
     public static void insertarProgram() {
+        System.out.println("Bienvenido a crear una pelicula");
         PeliculaService bd = new PeliculaService();
 
         String nombre = PedirDatos.obtenerNombrePelicula();
@@ -65,9 +71,11 @@ public class Program {
 
     public static void actualizar() throws ParseException {
         PeliculaService bd = new PeliculaService();
+        System.out.println("Bienvenido a Modificar una pelicula");
         String insertarVF;
         String nombre = PedirDatos.obtenerNombrePelicula();
         boolean existePelicula = Funcionalidades.buscadorRecursivo(nombre,bd);
+
         if (!existePelicula) {
             System.out.println("La pelicula no existe,desea insertar?");
             insertarVF = new Scanner(System.in).nextLine();

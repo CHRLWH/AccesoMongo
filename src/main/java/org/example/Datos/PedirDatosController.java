@@ -1,11 +1,10 @@
-package org.example;
+package org.example.Datos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 public class PedirDatosController {
 
@@ -52,7 +51,7 @@ public class PedirDatosController {
             do {
                 try {
                     controladorDeExcepcion = false;
-                    fecha =  PedirDatos.obtenerFechaEstreno();
+                    fecha = PedirDatos.obtenerFechaEstreno();
                     
                 }catch (DateTimeParseException a){
                     System.out.println("Recuerda introducir la fecha en formato (formato: yyyy-MM-dd)");
