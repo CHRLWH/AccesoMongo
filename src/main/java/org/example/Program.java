@@ -69,7 +69,7 @@ public class Program {
         PeliculaService bd = new PeliculaService();
 
         System.out.println("Todos los datos");
-        bd.obtenerTodasLasPeliculas();
+        bd.obtenerTodasLasPeliculas().stream().forEach(System.out::println);
     }
 
 
