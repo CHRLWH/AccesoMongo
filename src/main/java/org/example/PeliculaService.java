@@ -32,7 +32,7 @@ public class PeliculaService {
 
         // Convertir el objeto Cientifico a un documento BSON
         Document document = new Document("titulo", pelicula.getTitulo())
-                .append("estreno", pelicula.getEstreno())
+                .append("estreno", pelicula.getEstreno().toString())
                 .append("genero", pelicula.getGenero())
                 .append("director", pelicula.getDirector())
                 .append("actores", pelicula.getActores())
