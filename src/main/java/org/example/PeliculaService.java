@@ -30,7 +30,6 @@ public class PeliculaService {
 
         MongoCollection<Document> collection = database.getCollection("pelicula");
 
-        // Convertir el objeto Cientifico a un documento BSON
         Document document = new Document("titulo", pelicula.getTitulo())
                 .append("estreno", pelicula.getEstreno().toString())
                 .append("genero", pelicula.getGenero())
@@ -38,26 +37,8 @@ public class PeliculaService {
                 .append("actores", pelicula.getActores())
                 .append("descripcion", pelicula.getDescripcion());
 
-        // Insertar el documento en la colección
         collection.insertOne(document);
         System.out.println("Pelicula insertada correctamente !");
-    }
-
-    // Leer (Buscar) una pelicula por su titulo
-    public void obtenerPeliculaPorTitulo(String titulo) {
-        MongoCollection<Document> collection = database.getCollection("pelicula");
-
-        // Crear una consulta para buscar por titulo
-        Document query = new Document("Titulo", titulo);
-
-        // Obtener el resultado
-        Document doc = collection.find(query).first();
-
-        if (doc != null) {
-            System.out.println("Pelicula encontrada: " + doc.toJson());
-        } else {
-            System.out.println("Pelicula no encontrada.");
-        }
     }
 
     // Leer todos los científicos
@@ -80,7 +61,6 @@ public class PeliculaService {
         return peliculas;
     }
 
-    // Actualizar un científico por nombre
     public void actualizarPelicula(String titulo, Pelicula nuevaPelicula) {
         MongoCollection<Document> collection = database.getCollection("pelicula");
 
@@ -95,11 +75,11 @@ public class PeliculaService {
 
         // Actualizar el documento en la base de datos
         collection.updateOne(Filters.eq("titulo", titulo), Updates.set("titulo", nuevaPelicula.getTitulo()));
-        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("nacimiento", nuevaPelicula.getEstreno()));
-        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("fallecimiento", nuevaPelicula.getGenero()));
-        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("nacionalidad", nuevaPelicula.getDirector()));
-        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("campo", nuevaPelicula.getActores()));
-        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("logros", nuevaPelicula.getDescripcion()));
+        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("estreno", nuevaPelicula.getEstreno()));
+        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("genero", nuevaPelicula.getGenero()));
+        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("director", nuevaPelicula.getDirector()));
+        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("actores", nuevaPelicula.getActores()));
+        collection.updateOne(Filters.eq("titulo", titulo), Updates.set("descripcion", nuevaPelicula.getDescripcion()));
 
         System.out.println("Pelicula actualizada correctamente.");
     }
